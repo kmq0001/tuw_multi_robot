@@ -139,7 +139,7 @@ void Router_Node::monitorExecution() {
 }
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
-    cout << "I so got tha message for you love. What will you od for me if I give it to you? ;)";
+    ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
     cout << msg;
     return 0;
 }
