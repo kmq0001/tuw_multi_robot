@@ -79,7 +79,7 @@ Router_Node::Router_Node ( ros::NodeHandle &_n ) : Router(),
     subMap_ = n_.subscribe ( "map", 1, &Router_Node::mapCallback, this );
     subVoronoiGraph_ = n_.subscribe ( "segments", 1, &Router_Node::graphCallback, this );
     subRobotInfo_ = n_.subscribe ( "robot_info" , 10000, &Router_Node::robotInfoCallback, this );
-    cout << 'hi sugar baby'
+    ROS_INFO('hi sugar baby');
     subExistingPaths_ = n_.subscribe("new_topic", 10, &Router_Node::existingPathsCallback, this);
 
     if ( single_robot_mode_) {
