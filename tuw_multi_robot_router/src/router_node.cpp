@@ -88,7 +88,7 @@ Router_Node::Router_Node ( ros::NodeHandle &_n ) : Router(),
         subSingleRobotGoal_ = n_.subscribe ( "goal", 1, &Router_Node::goalCallback, this );
     } else {
         /// Multi Robot Mode
-        ROS_INFO("Multi Robot Mode");
+        ROS_INFO("Multi Robot Mode!!!!!!!!!!!!HIHUHIHIIHWHIWD");
         subGoalSet_ = n_.subscribe ( "goals" , 1, &Router_Node::goalsCallback, this );
     }
 
