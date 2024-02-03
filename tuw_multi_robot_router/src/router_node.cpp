@@ -79,6 +79,7 @@ Router_Node::Router_Node ( ros::NodeHandle &_n ) : Router(),
     subMap_ = n_.subscribe ( "map", 1, &Router_Node::mapCallback, this );
     subVoronoiGraph_ = n_.subscribe ( "segments", 1, &Router_Node::graphCallback, this );
     subRobotInfo_ = n_.subscribe ( "robot_info" , 10000, &Router_Node::robotInfoCallback, this );
+    subExistingPaths_ = n_.subscribe("new_topic", 10, &Router_Node::existingPathsCallback, this);
 
     if ( single_robot_mode_) {
         /// Sinble Robot Mode
@@ -136,10 +137,16 @@ void Router_Node::monitorExecution() {
 
 }
 
+void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
+    cout << "I so got tha message for you love. What will you od for me if I give it to you? ;)";
+    cout << msg;
+    return 0;
+}
+
 void Router_Node::goalCallback ( const geometry_msgs::PoseStamped &msg ) {
     
     if ( subscribed_robots_.size() != 1 ) {
-        ROS_WARN ( "No robot subsribed, ou have to publish a tuw_multi_robot_msgs::RobotInfo to let the planer know where your robot is located!");
+        ROS_WARN ( "No robot subsribed, you have to publish a tuw_multi_robot_msgs::RobotInfo to let the planer know where your robot is located!");
         ROS_WARN ( "Use a local behavior controller to publish regual a RobotInfo msg!");
         return;
     } 
