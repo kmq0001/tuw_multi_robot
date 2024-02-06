@@ -100,6 +100,7 @@ private:
     ros::Subscriber subSingleRobotGoal_;
     ros::Subscriber subVoronoiGraph_;
     ros::Subscriber subRobotInfo_;
+    ros::Subscriber subExistingPaths_;
 
     std::vector<RobotInfoPtr> subscribed_robots_;       /// robots avaliable
     std::vector<RobotInfoPtr> active_robots_;           /// robots currently used by the planner
@@ -122,6 +123,7 @@ private:
     bool monitor_enabled_;
     
     void parametersCallback ( tuw_multi_robot_router::routerConfig &config, uint32_t level );
+    void existingPathsCallback( const nav_msgs::Path &msg );
     void odomCallback ( const ros::MessageEvent<nav_msgs::Odometry const> &_event, int _topic );
     void graphCallback ( const tuw_multi_robot_msgs::Graph &msg );
     void goalsCallback ( const tuw_multi_robot_msgs::RobotGoalsArray &_goals );
