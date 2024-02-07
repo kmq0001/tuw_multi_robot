@@ -6,7 +6,7 @@
 	<arg name="priority_rescheduling"  default="true" />
 	<arg name="speed_rescheduling"  default="true" />
 	<arg name="collision_resolver"  default="2" />
-	<arg name="publish_routing_table"  default="true" />
+	<arg name="publish_routing_table"  default="false" />
     
 	
     <group if="$(arg use_gdb)">
