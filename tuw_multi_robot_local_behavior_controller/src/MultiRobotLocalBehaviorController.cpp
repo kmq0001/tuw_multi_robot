@@ -139,7 +139,7 @@ void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const 
                 ROS_INFO("new path found %i %lu", i, newPath.size());
 
             if (changed)
-                ROS_INFO("Publishing path with Odom method!!! Did change!!!");
+                //ROS_INFO("Publishing path with Odom method!!! Did change!!!");
                 publishPath(newPath, i);
         }
     }

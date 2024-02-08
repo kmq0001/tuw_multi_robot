@@ -87,7 +87,7 @@ Router_Node::Router_Node ( ros::NodeHandle &_n ) : Router(),
         subSingleRobotGoal_ = n_.subscribe ( "goal", 1, &Router_Node::goalCallback, this );
     } else {
         /// Multi Robot Mode
-        ROS_INFO("Multi Robot Mode!!!!!!!!!!!!HIHUHIHIIHWHIWD");
+        ROS_INFO("Multi Robot Mode");
         subGoalSet_ = n_.subscribe ( "goals" , 1, &Router_Node::goalsCallback, this );
     }
 
@@ -444,19 +444,25 @@ void Router_Node::publish() {
     ROS_INFO ( "%s: Plan found :-), publishing plan", n_param_.getNamespace().c_str());
     time_first_robot_started_ = ros::Time::now();
     finished_robots_.clear();
-    nav_msgs::Path msg_path;
+    nav_msgs::Path msg_path; //used to publish the unsynchronised paths - NOT USED OR REQUIRED FOR NavSys
     tuw_multi_robot_msgs::Route msg_route;
+    //setting header values for nav_msgs Path
     msg_path.header.seq = 0;
     msg_path.header.stamp = time_first_robot_started_;
     msg_path.header.frame_id = "map";
     msg_route.header = msg_path.header;
 
+    //where is active_robots_ set?
+    /* loop iterates through every active robot. Very likely that active_robots are those that have a goal in GoalsArray
+       retrieves robot's route from the routingTable_
+    */
     for ( int i = 0; i < active_robots_.size(); i++ ) {
-        RobotInfoPtr robot = active_robots_[i];
-        const std::vector<Checkpoint> &route = getRoute ( i );
+        RobotInfoPtr robot = active_robots_[i]; //set pointer to robot's info
+        const std::vector<Checkpoint> &route = getRoute ( i ); //retrieve robot's route form the routingTable_
         msg_path.poses.clear();
 
-        //Add first point
+        //Add first point - set first pose for nav_msgs Path to starting point of route 
+          //set header values
         geometry_msgs::PoseStamped pose_1;
         pose_1.header.seq = 0;
         pose_1.header.stamp = time_first_robot_started_;
@@ -490,14 +496,15 @@ void Router_Node::publish() {
             msg_path.poses.push_back ( pose );
         }
 
-        robot->pubPaths_.publish ( msg_path );
+        robot->pubPaths_.publish ( msg_path ); //NOT USED BY NAVSYS - NOT REQUIRED
 
-
+        //takes the route that was retrieved from the routingTable and converts it into a Route msg format
         msg_route.segments.clear();
 
         for ( const Checkpoint &cp : route ) {
             tuw_multi_robot_msgs::RouteSegment seg;
-
+            
+            //reformat points/poses
             Eigen::Vector2d posStart ( cp.start[0] * mapResolution_, cp.start[1] * mapResolution_ );
             tf::Quaternion qStart;
             qStart.setEuler ( 0, 0, cp.start[2] );
@@ -523,6 +530,8 @@ void Router_Node::publish() {
             seg.segment_id = cp.segId;
             seg.width = graph_[cp.segId].width() * mapResolution_;
 
+            //set the preconditions
+            //these have already been set in the checkpoint of the route in the routingTable 
             for ( int j = 0; j < cp.preconditions.size(); j++ ) {
                 tuw_multi_robot_msgs::RoutePrecondition pc;
                 pc.robot_id = active_robots_[cp.preconditions[j].robotId]->robot_name;
