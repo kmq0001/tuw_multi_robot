@@ -118,12 +118,14 @@ MultiRobotLocalBehaviorController::MultiRobotLocalBehaviorController(ros::NodeHa
     pubRobotInfo_ = n.advertise<tuw_multi_robot_msgs::RobotInfo>(topic_robot_info_, 10);
 }
 
+//this finds a new path based on something. is it odometry data? Does it live change the path according to odometry data?
 void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const nav_msgs::Odometry> &_event, int _topic)
 {
     const nav_msgs::Odometry_<std::allocator<void>>::ConstPtr &odom = _event.getMessage();
     robot_pose_[_topic] = odom->pose;
     Eigen::Vector2d pt(odom->pose.pose.position.x, odom->pose.pose.position.y);
 
+    std::cout << 'In Odom Method!!!!!'
     bool changed = false;
     robot_steps_[_topic] = observer_[_topic].getStep(pt, changed);
 
@@ -137,11 +139,13 @@ void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const 
                 ROS_INFO("new path found %i %lu", i, newPath.size());
 
             if (changed)
+                std::cout << 'Publishing path with Odom method!!! Did change!!!'
                 publishPath(newPath, i);
         }
     }
 }
 
+//publish path as nav_msgsPath!!!!!!!!!!!!!!!! THIS IS WHERE IT HAPPENS 
 void MultiRobotLocalBehaviorController::publishPath(std::vector<Eigen::Vector3d> _p, int _topic)
 {
     nav_msgs::Path path;
@@ -184,6 +188,7 @@ int MultiRobotLocalBehaviorController::findRobotId(std::string _name)
     return -1;
 }
 
+//callback function for the subscribed Routes
 void MultiRobotLocalBehaviorController::subSegPathCb(const ros::MessageEvent<const tuw_multi_robot_msgs::Route> &_event, int _topic)
 {
     const tuw_multi_robot_msgs::Route_<std::allocator<void>>::ConstPtr &path = _event.getMessage();
@@ -242,6 +247,7 @@ void MultiRobotLocalBehaviorController::subSegPathCb(const ros::MessageEvent<con
         ROS_INFO("initial path found %i %lu", _topic, newPath.size());
 
     if (chged)
+        std::cout << 'Publishing Path with normal callback function!!!!!'
         publishPath(newPath, _topic);
 }
 
