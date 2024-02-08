@@ -125,7 +125,7 @@ void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const 
     robot_pose_[_topic] = odom->pose;
     Eigen::Vector2d pt(odom->pose.pose.position.x, odom->pose.pose.position.y);
 
-    std::cout << 'In Odom Method!!!!!'
+    std::cout << 'In Odom Method!!!!!';
     bool changed = false;
     robot_steps_[_topic] = observer_[_topic].getStep(pt, changed);
 
@@ -139,7 +139,7 @@ void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const 
                 ROS_INFO("new path found %i %lu", i, newPath.size());
 
             if (changed)
-                std::cout << 'Publishing path with Odom method!!! Did change!!!'
+                std::cout << 'Publishing path with Odom method!!! Did change!!!';
                 publishPath(newPath, i);
         }
     }
@@ -247,7 +247,7 @@ void MultiRobotLocalBehaviorController::subSegPathCb(const ros::MessageEvent<con
         ROS_INFO("initial path found %i %lu", _topic, newPath.size());
 
     if (chged)
-        std::cout << 'Publishing Path with normal callback function!!!!!'
+        std::cout << 'Publishing Path with normal callback function!!!!!';
         publishPath(newPath, _topic);
 }
 
