@@ -125,7 +125,7 @@ void MultiRobotLocalBehaviorController::subOdomCb(const ros::MessageEvent<const 
     robot_pose_[_topic] = odom->pose;
     Eigen::Vector2d pt(odom->pose.pose.position.x, odom->pose.pose.position.y);
 
-    ROS_INFO("In Odom Method!!!!!");
+    //ROS_INFO("In Odom Method!!!!!");
     bool changed = false;
     robot_steps_[_topic] = observer_[_topic].getStep(pt, changed);
 
