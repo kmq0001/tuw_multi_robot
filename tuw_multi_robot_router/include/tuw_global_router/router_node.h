@@ -105,7 +105,8 @@ private:
     std::vector<RobotInfoPtr> subscribed_robots_;       /// robots avaliable
     std::vector<RobotInfoPtr> active_robots_;           /// robots currently used by the planner
     std::map<std::string, double> finished_robots_;     /// robots finished with execution time
-    std::vector<std::string> missing_robots_;
+    std::vector<std::string> missing_robots_;reset
+    std::map<std::vector<float>, std::vector<float>> exitingPathSegVectors; //maps a 2d vector with start and end time to a vector represnting the path step/segment
     float robot_radius_max_;
     cv::Mat distMap_;
     Eigen::Vector2d mapOrigin_;

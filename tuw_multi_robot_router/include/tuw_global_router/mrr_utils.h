@@ -96,16 +96,18 @@ class Checkpoint
     {
         bool updatedPc = false;
 
+        //for every precondition in a precondition vector of a single checkpoint
         for (Checkpoint::Precondition &pc : preconditions)
         {
-            if (pc.robotId == n_pc.robotId)
+            if (pc.robotId == n_pc.robotId) //find the existing precondition of the new preconditions robots
             {
-                pc.stepCondition = std::max(pc.stepCondition, n_pc.stepCondition);
+                pc.stepCondition = std::max(pc.stepCondition, n_pc.stepCondition);  //set the precondition in the vector's stepcondition to the larger of the options (old stepcondition or new stepcondition)
                 updatedPc = true;
                 break;
             }
         }
 
+        //if a precondition with the new precondition robotid is not yet in the preconditions vector, simply add the new precondition
         if (!updatedPc)
         {
             preconditions.push_back(n_pc);
@@ -117,10 +119,12 @@ class Checkpoint
              */
     void updatePreconditions(const std::vector<Precondition> &n_pcs)
     {
+        //for each precondition in the new preconditions vector
         for (const Checkpoint::Precondition &n_pc : n_pcs)
         {
             bool updatedPc = false;
-
+            
+            //repeat the singular update preconditions function
             for (Checkpoint::Precondition &pc : preconditions)
             {
                 if (pc.robotId == n_pc.robotId)

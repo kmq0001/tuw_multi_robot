@@ -41,27 +41,30 @@ RouteCoordinatorTimed::RouteCoordinatorTimed() : RouteCoordinator()
 
 bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, const uint32_t _diameterPixel, const uint32_t _robotId)
 {
+    //for every routeVertex in the routeCandidate
     for (uint32_t i = 0; i < _path.size(); i++)
     {
         uint32_t begin = 0;
         int32_t end = TIME_INFINITY;
 
-        if (i != 0)
+        if (i != 0) //if routeVertex is not the first in the path
         {
-            begin = _path[i - 1].potential;
-        }
+            begin = _path[i - 1].potential;   //set to the potential of the previous routeVertex, this would include the first RouteVertex
+        } 
 
-        if (i != _path.size() - 1)
+        if (i != _path.size() - 1)   //for every routeVertex except the last one
         {
             end = _path[i].potential;
         }
 
+        //First check if segment valid
         if (!timeline_.addSegment(begin, end, _path[i].getSegment().getSegmentId(), _robotId, _diameterPixel, true))
         {
             removeRobot(_robotId);
             return false;
         }
-
+        
+        //second check if segment valid
         std::vector<uint32_t> pred = _path[i].getSegment().getPredecessors();
 
         if (_path[i].overlapPredecessor)
@@ -76,6 +79,7 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
             }
         }
 
+        //Third check if segment valid
         std::vector<uint32_t> succ = _path[i].getSegment().getSuccessors();
 
         if (_path[i].overlapSuccessor)
@@ -224,6 +228,8 @@ RouteCoordinatorTimed::Timeline::Timeline()
 {
 }
 
+
+//this is where you have to make the changes
 void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, const uint32_t _nrRobots)
 {
     nrRobots_ = _nrRobots;
@@ -236,6 +242,22 @@ void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, 
         timeline_.emplace_back();
         segmentSpace_.push_back(_graph[i].width());
     }
+
+    /*
+    vector<> existingSegs
+    for(int i=0; i < nrOfExistingSegments; i++){
+        addSegment(st, et, segid, -1, _robotSize, ms)
+    }*/
+    
+    //TODO AddSegment here. 
+    /*addSegment requires :
+        startTime uint32_t - check how both of these times are made. Formatting and from when does the time count. Then how can it be calculated. Roberto had an idea. Go back in notebok and check this
+        endTime uint32_t - can be done
+        segId uint32_t - find out where these are stored and see how you can translate the positions to the segments  
+        robotNr uint32_t - double ckeck that this means robot id. If it does, could add robot id to message in 'seg' variable ---> -1
+        uint32_t robotSize - estimate - hardcode this for now
+        bool mainSeg - what does this mean? set to true?
+    */
 }
 
 bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, const int32_t _endTime, const uint32_t _segId, const uint32_t _robotNr, const uint32_t _robotSize, bool _mainSeg)
@@ -248,7 +270,8 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
     }
 
     int freeSpace = segmentSpace_[_segId];
-
+     
+    //keep this if statement
     if (_endTime > maxTime_)
     {
         maxTime_ = _endTime;
@@ -261,7 +284,7 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
     }
 
     robotSegments_[_robotNr].push_back(_segId);
-    timeline_[_segId].emplace_back(_robotNr, (float)_robotSize, _startTime, _endTime, _mainSeg);
+    timeline_[_segId].emplace_back(_robotNr, (float)_robotSize, _startTime, _endTime, _mainSeg); //adding the segment to timeline
 
     return true;
 }

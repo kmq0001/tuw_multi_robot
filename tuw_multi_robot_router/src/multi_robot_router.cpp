@@ -112,7 +112,7 @@ namespace multi_robot_router
         std::vector<std::vector<RouteVertex>> routeCandidates;
         routeCandidates.resize(nr_robots_);
 
-        std::vector<uint32_t> priorityList = priority_scheduler_.getActualSchedule();
+        std::vector<uint32_t> priorityList = priority_scheduler_.getActualSchedule();  //order in which paths are calculated
         std::vector<float> speedList = speed_scheduler_.getActualSpeeds();
         uint32_t firstSchedule = 0;
         bool found = false;
@@ -128,9 +128,9 @@ namespace multi_robot_router
                 //(used for removing from path coordinator)
                 if(firstRobot != -1)
                 {
-                    for(uint32_t i = 0; i < priorityList.size(); i++)
+                    for(uint32_t i = 0; i < priorityList.size(); i++)   //iterated through list of robots to be planned for
                     {
-                        if(priorityList[i] == firstRobot)
+                        if(priorityList[i] == firstRobot)  //finds first robot to be planned for
                             firstSchedule = i;
                     }
                 }
@@ -146,11 +146,12 @@ namespace multi_robot_router
             priorityScheduleAttempts_++;
         }
         while(usePriorityRescheduler_ && duration < _timeLimit && !found && priority_scheduler_.reschedulePriorities(lastPlannedRobot, srr.getRobotCollisions(), priorityList, firstSchedule));
-        routingTable = generatePath(routeCandidates, *route_coordinator_);
+        routingTable = generatePath(routeCandidates, *route_coordinator_);  //finalising routingTable
 
         return found;
     }
 
+    //pleasepleaseplease be where the actual paths get planned and put together as route candidates - its not, actually happens in getRouteCandidate()
     bool MultiRobotRouter::planPaths(const std::vector<uint32_t> &_priorityList, const std::vector<float> &_speedList, const std::vector<uint32_t> &_startSegments, const std::vector<uint32_t> &_goalSegments, const uint32_t _firstSchedule, std::vector<std::vector<RouteVertex>> &_routeCandidates, uint32_t &_robot)
     {
         bool found = false;
@@ -188,7 +189,7 @@ namespace multi_robot_router
                 ROS_INFO("Failed coordinator");
                 break;
             }
-
+            ROS_INFO(timeline_);
             found = true;
         }
 
