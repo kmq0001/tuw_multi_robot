@@ -93,8 +93,9 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
                 }
             }
         }
+        ROS_INFO(timeline_);
     }
-    ROS_INFO(timeline_);
+    
     return true;
 }
 
