@@ -93,7 +93,7 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
                 }
             }
         }
-        ROS_INFO(timeline_);
+        //ROS_INFO(timeline_); This aggressively doesn't work. Don't know why. Makes me angry. Cest la vie. Im hungry
     }
     
     return true;
@@ -286,7 +286,7 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
 
     robotSegments_[_robotNr].push_back(_segId);
     timeline_[_segId].emplace_back(_robotNr, (float)_robotSize, _startTime, _endTime, _mainSeg); //adding the segment to timeline
-
+    ROS_INFO(timeline_);
     return true;
 }
 
