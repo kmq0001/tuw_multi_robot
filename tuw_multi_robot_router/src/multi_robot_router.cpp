@@ -189,7 +189,7 @@ namespace multi_robot_router
                 ROS_INFO("Failed coordinator");
                 break;
             }
-            ROS_INFO(timeline_);
+            //ROS_INFO(timeline_);
             found = true;
         }
 
