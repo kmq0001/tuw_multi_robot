@@ -334,7 +334,7 @@ bool RouteCoordinatorTimed::Timeline::checkSegment(const uint32_t _startTime, co
     
     ROS_INFO("END: ", _endTime);
     ROS_INFO("BEGIN: ", _startTime);
-    ROS_INFO("segspace: ", segmentSpace_);
+    ROS_INFO("segspace: ", segmentSpace_[_segId]);
 
     if (freeSpace < _robotSize)
     {
