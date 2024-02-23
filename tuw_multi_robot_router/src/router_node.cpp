@@ -144,7 +144,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
 
     //populate vector with vectors containing 2d vector values and starting positions of steps in the path
-    vector<vector<float>> temp_vect;
+    std::vector<std::vector<float>> temp_vect;
     for(int i = 1; i < msg.poses.size(); i++) {
         std::vector<float> step;
         float x_vect = msg.poses[i].pose.position.x - msg.poses[i-1].pose.position.x
