@@ -58,8 +58,8 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
             end = _path[i].potential;
             
         }
-        ROS_INFO('END: ', std::to_string(end));
-        ROS_INFO('BEGIN: ', std::to_string(begin));
+        ROS_INFO("END: ", std::to_string(end));
+        ROS_INFO("BEGIN: ", std::to_string(begin));
         //First check if segment valid
         if (!timeline_.addSegment(begin, end, _path[i].getSegment().getSegmentId(), _robotId, _diameterPixel, true))
         {
