@@ -147,15 +147,15 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     std::vector<std::vector<float>> temp_vect;
     for(int i = 1; i < msg.poses.size(); i++) {
         std::vector<float> step;
-        float x_vect = msg.poses[i].pose.position.x - msg.poses[i-1].pose.position.x
-        float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y
-        float x_start_pos = msg.poses[i-1].pose.position.x
-        float y_start_pos = msg.poses[i-1].pose.position.y
-        step.insert(step.end(), x_vect)
-        step.insert(step.end(), y_vect)
-        step.insert(step.end(), x_start_pos)
-        step.insert(step.end(), y_start_pos)
-        temp_vect.insert(temp_vect.end(), step)
+        float x_vect = msg.poses[i].pose.position.x - msg.poses[i-1].pose.position.x;
+        float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y;
+        float x_start_pos = msg.poses[i-1].pose.position.x;
+        float y_start_pos = msg.poses[i-1].pose.position.y;
+        step.insert(step.end(), x_vect);
+        step.insert(step.end(), y_vect);
+        step.insert(step.end(), x_start_pos);
+        step.insert(step.end(), y_start_pos);
+        temp_vect.insert(temp_vect.end(), step);
     } 
 
 }
