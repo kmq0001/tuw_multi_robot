@@ -50,11 +50,13 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
         if (i != 0) //if routeVertex is not the first in the path
         {
             begin = _path[i - 1].potential;   //set to the potential of the previous routeVertex, this would include the first RouteVertex
+            std::cout<<'BEGIN: ', std::to_string(begin);
         } 
 
         if (i != _path.size() - 1)   //for every routeVertex except the last one
         {
             end = _path[i].potential;
+            std::cout<<'END: ', std::to_string(end);
         }
 
         //First check if segment valid
@@ -286,13 +288,13 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
 
     robotSegments_[_robotNr].push_back(_segId);
     timeline_[_segId].emplace_back(_robotNr, (float)_robotSize, _startTime, _endTime, _mainSeg); //adding the segment to timeline
-    
+    /*
     std::ostream& operator<<(std::ostream& os, Timeline const& myObject);
     std::ostringstream myObjectStream; // a stream is built
     myObjectStream << timeline_[0]; // the stream is filled
 
     std::string mySerializedObject = myObjectStream.str(); // we extract the contents of the stream
-    std::cout << mySerializedObject;
+    std::cout << mySerializedObject;*/
 
     return true;
 }
