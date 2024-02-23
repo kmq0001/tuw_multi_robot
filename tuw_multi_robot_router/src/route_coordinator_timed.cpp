@@ -286,7 +286,13 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
 
     robotSegments_[_robotNr].push_back(_segId);
     timeline_[_segId].emplace_back(_robotNr, (float)_robotSize, _startTime, _endTime, _mainSeg); //adding the segment to timeline
-    std::cout << timeline_;
+    
+    std::ostringstream myObjectStream; // a stream is built
+    myObjectStream << timeline_; // the stream is filled
+
+    std::string mySerializedObject = myObjectStream.str(); // we extract the contents of the stream
+    std::cout << mySerializedObject;
+
     return true;
 }
 
