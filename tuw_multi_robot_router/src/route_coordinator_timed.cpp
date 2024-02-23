@@ -97,7 +97,7 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
         }
         ROS_INFO("END: ", end);
         ROS_INFO("BEGIN: ", begin);
-        ROS_INFO("path potential: ", timeline_);
+        ROS_INFO("path potential: ", _path);
         //ROS_INFO(timeline_); This aggressively doesn't work. Don't know why. Makes me angry. Cest la vie. Im hungry
     }
     
