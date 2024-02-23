@@ -98,10 +98,10 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
         ROS_INFO("END: ", end);
         ROS_INFO("BEGIN: ", begin);
         if (_path.empty()){
-            ROS_INFO("_path is TRUE - empty")
+            ROS_INFO("_path is TRUE - empty");
         }
         else {
-            ROS_INFO("_path is FALSE - there's something there!")
+            ROS_INFO("_path is FALSE - there's something there!");
         }
         //ROS_INFO("path potential: ", );
         //ROS_INFO(timeline_); This aggressively doesn't work. Don't know why. Makes me angry. Cest la vie. Im hungry
@@ -340,10 +340,10 @@ bool RouteCoordinatorTimed::Timeline::checkSegment(const uint32_t _startTime, co
     
     ROS_INFO("END: ", _endTime);
     if (timeline_.empty()){
-        ROS_INFO("timeline is TRUE - empty")
+        ROS_INFO("timeline is TRUE - empty");
     }
     else {
-        ROS_INFO("timeline is FALSE - something there!")
+        ROS_INFO("timeline is FALSE - something there!");
     }
     //ROS_INFO("BEGIN: ", timeline_.empty());
     //ROS_INFO("segspace: ", segmentSpace_.empty());
