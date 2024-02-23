@@ -124,6 +124,8 @@ bool RouteCoordinatorTimed::checkSegment(const Vertex &_next, const uint32_t _st
 
     //Bug fix check all neighbour edges for infinity
     int32_t endTime = _endTime;
+    ROS_INFO("END: ", endTime);
+    ROS_INFO("BEGIN: ", _startTime);
 
     if (isGoal(_next, _robotId) && !_ignoreGoal)
     {
@@ -160,7 +162,8 @@ bool RouteCoordinatorTimed::checkSegment(const Vertex &_next, const uint32_t _st
             }
         }
     }
-
+    ROS_INFO("END: ", endTime);
+    ROS_INFO("BEGIN: ", _startTime);
     return true;
 }
 
