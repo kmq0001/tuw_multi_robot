@@ -95,9 +95,9 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
                 }
             }
         }
-        ROS_DEBUG_STREAM("END: ", end);
-        ROS_DEBUG_STREAM("BEGIN: ", begin);
-        ROS_DEBUG_STREAM("path potential: ", _path);
+        ROS_INFO("END: ", end.empty());
+        ROS_INFO("BEGIN: ", begin.empty());
+        ROS_INFO("path potential: ", _path.empty());
         //ROS_INFO(timeline_); This aggressively doesn't work. Don't know why. Makes me angry. Cest la vie. Im hungry
     }
     
@@ -124,8 +124,8 @@ bool RouteCoordinatorTimed::checkSegment(const Vertex &_next, const uint32_t _st
 
     //Bug fix check all neighbour edges for infinity
     int32_t endTime = _endTime;
-    ROS_INFO("END: ", endTime);
-    ROS_INFO("BEGIN: ", _startTime);
+    ROS_INFO("END: ", endTime.empty());
+    ROS_INFO("BEGIN: ", _startTime.empty());
 
     if (isGoal(_next, _robotId) && !_ignoreGoal)
     {
@@ -162,8 +162,8 @@ bool RouteCoordinatorTimed::checkSegment(const Vertex &_next, const uint32_t _st
             }
         }
     }
-    ROS_INFO("END: ", endTime);
-    ROS_INFO("BEGIN: ", _startTime);
+    ROS_INFO("END: ", endTime.empty());
+    ROS_INFO("BEGIN: ", _startTime.empty());
     return true;
 }
 
@@ -332,9 +332,9 @@ bool RouteCoordinatorTimed::Timeline::checkSegment(const uint32_t _startTime, co
     //Return if to less space
     int freeSpace = segmentSpace_[_segId];
     
-    ROS_DEBUG_STREAM("END: ", _endTime);
-    ROS_DEBUG_STREAM("BEGIN: ", _startTime);
-    ROS_DEBUG_STREAM("segspace: ", segmentSpace_[_segId]);
+    ROS_INFO("END: ", _endTime.empty());
+    ROS_INFO("BEGIN: ", timeline_.empty());
+    ROS_INFO("segspace: ", segmentSpace_.empty());
 
     if (freeSpace < _robotSize)
     {
