@@ -95,9 +95,9 @@ bool RouteCoordinatorTimed::addRoute(const std::vector<RouteVertex> &_path, cons
                 }
             }
         }
-        ROS_INFO_STREAM("END: ", end);
-        ROS_INFO_STREAM("BEGIN: ", begin);
-        ROS_INFO_STREAM("path potential: ", _path);
+        ROS_DEBUG_STREAM("END: ", end);
+        ROS_DEBUG_STREAM("BEGIN: ", begin);
+        ROS_DEBUG_STREAM("path potential: ", _path);
         //ROS_INFO(timeline_); This aggressively doesn't work. Don't know why. Makes me angry. Cest la vie. Im hungry
     }
     
@@ -332,9 +332,9 @@ bool RouteCoordinatorTimed::Timeline::checkSegment(const uint32_t _startTime, co
     //Return if to less space
     int freeSpace = segmentSpace_[_segId];
     
-    ROS_INFO_STREAM("END: ", _endTime);
-    ROS_INFO_STREAM("BEGIN: ", _startTime);
-    ROS_INFO_STREAM("segspace: ", segmentSpace_[_segId]);
+    ROS_DEBUG_STREAM("END: ", _endTime);
+    ROS_DEBUG_STREAM("BEGIN: ", _startTime);
+    ROS_DEBUG_STREAM("segspace: ", segmentSpace_[_segId]);
 
     if (freeSpace < _robotSize)
     {
