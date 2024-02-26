@@ -139,7 +139,7 @@ void Router_Node::monitorExecution() {
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
-    //std::cout << msg;
+    std::cout << msg;
     
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
 
