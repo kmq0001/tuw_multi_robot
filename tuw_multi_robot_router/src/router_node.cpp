@@ -151,7 +151,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y;
         float x_start_pos = msg.poses[i-1].pose.position.x;
         float y_start_pos = msg.poses[i-1].pose.position.y;
-        std::cout << "content for step vector: " << x_vect.str() << y_vect.str() << x_start_pos.str() << y_start_pos;
+        std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
         step.insert(step.end(), x_vect);
         step.insert(step.end(), y_vect);
         step.insert(step.end(), x_start_pos);
