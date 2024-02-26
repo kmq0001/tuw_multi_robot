@@ -158,7 +158,8 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         temp_vect.insert(temp_vect.end(), step);
     } 
     ROS_INFO(temp_vect);
-    existingPathSegVectors.insert(std::pair<std::vector<float>, std::vector<float>>({-3, -3}, temp_vect));
+    existingPathSegVectors.insert({{-3, -3}, temp_vect});
+
 
 }
 
