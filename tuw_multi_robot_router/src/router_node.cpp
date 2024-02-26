@@ -139,7 +139,7 @@ void Router_Node::monitorExecution() {
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
-    std::cout << msg;
+    //std::cout << msg;
     
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
 
@@ -151,6 +151,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y;
         float x_start_pos = msg.poses[i-1].pose.position.x;
         float y_start_pos = msg.poses[i-1].pose.position.y;
+        std::cout << "content for step vector: " << x_vect.str() << y_vect.str() << x_start_pos.str() << y_start_pos;
         step.insert(step.end(), x_vect);
         step.insert(step.end(), y_vect);
         step.insert(step.end(), x_start_pos);
