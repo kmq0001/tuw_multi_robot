@@ -151,12 +151,13 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y;
         float x_start_pos = msg.poses[i-1].pose.position.x;
         float y_start_pos = msg.poses[i-1].pose.position.y;
-        std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
-        step.insert(step.end(), x_vect);
-        step.insert(step.end(), y_vect);
-        step.insert(step.end(), x_start_pos);
-        step.insert(step.end(), y_start_pos);
-        temp_vect.insert(temp_vect.end(), step);
+        //the above values are successfully assigned. test with below commented out print command
+        //std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
+        step.push_back(x_vect);
+        step.push_back(y_vect);
+        step.push_back(x_start_pos);
+        step.push_back(y_start_pos);
+        temp_vect.push_back(temp_vect.end(), step);
         std::string str;
         for (int i = 0; i < step.size(); i++){
             str.push_back(step[i]);
