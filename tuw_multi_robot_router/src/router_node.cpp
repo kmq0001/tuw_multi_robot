@@ -156,8 +156,9 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         step.insert(step.end(), x_start_pos);
         step.insert(step.end(), y_start_pos);
         temp_vect.insert(temp_vect.end(), step);
+        ROS_INFO(str(step.begin(), sep.end()));
     } 
-    ROS_INFO(temp_vect);
+    //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
         existingPathSegVectors.insert({{-3, -3}, temp_vect[i]});
     }
