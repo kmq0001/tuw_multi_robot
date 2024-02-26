@@ -139,7 +139,7 @@ void Router_Node::monitorExecution() {
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
-    std::cout << msg;
+    //std::cout << msg;
     
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
 
@@ -160,7 +160,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         for (int i = 0; i < step.size(); i++){
             str.push_back(step[i]);
         }
-        std::cout<<str;
+        std::cout << "THE CONVERTED PATH  FROM DB" << str;
     } 
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
