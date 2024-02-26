@@ -157,7 +157,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         step.push_back(y_vect);
         step.push_back(x_start_pos);
         step.push_back(y_start_pos);
-        temp_vect.push_back(temp_vect.end(), step);
+        temp_vect.push_back(step);
         std::string str;
         for (int i = 0; i < step.size(); i++){
             str.push_back(step[i]);
