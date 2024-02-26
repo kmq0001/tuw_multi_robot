@@ -338,13 +338,14 @@ bool RouteCoordinatorTimed::Timeline::checkSegment(const uint32_t _startTime, co
     //Return if to less space
     int freeSpace = segmentSpace_[_segId];
     
+    /*
     ROS_INFO("END: ", _endTime);
     if (timeline_.empty()){
         ROS_INFO("timeline is TRUE - empty");
     }
     else {
         ROS_INFO("timeline is FALSE - something there!");
-    }
+    } */
     //ROS_INFO("BEGIN: ", timeline_.empty());
     //ROS_INFO("segspace: ", segmentSpace_.empty());
 
