@@ -175,7 +175,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         int segID;
         bool SPFound = false;
         bool EPFound = false;
-        vector<float> startPoint = {vect.second[2], vect.second[3]};
+        std::vector<float> startPoint = {vect.second[2], vect.second[3]};
         std::vector<float> endPoint = {startPoint[0] + vect.second[0], startPoint[1] + vect.second[1]};
 
         for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
