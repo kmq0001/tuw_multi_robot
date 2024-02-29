@@ -157,11 +157,11 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         step.push_back(y_vect);
         step.push_back(x_start_pos);
         step.push_back(y_start_pos);
+        //step vector values are successfully assigned 
         temp_vect.push_back(step);
-        std::string str;
-        for (int i = 0; i < step.size(); i++){
-            //str.push_back(step[i]);
-            std::cout << "Step vector: " << std::to_string(step[i]);
+        for (int i = 0; i < temp_vect.size(); i++){
+            for (int j = 0; j < temp_vect[i].size(); j++)
+            std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
         }
         //std::cout << "THE CONVERTED PATH  FROM DB" << str;
     }
