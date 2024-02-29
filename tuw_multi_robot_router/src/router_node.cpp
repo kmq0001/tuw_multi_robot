@@ -160,7 +160,8 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         temp_vect.push_back(step);
         std::string str;
         for (int i = 0; i < step.size(); i++){
-            str.push_back(step[i]);
+            //str.push_back(step[i]);
+            std::cout << "Step vector: " << std::to_string(step[i]);
         }
         //std::cout << "THE CONVERTED PATH  FROM DB" << str;
     }
@@ -179,7 +180,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         std::vector<float> endPoint = {startPoint[0] + vect.second[0], startPoint[1] + vect.second[1]};
 
         for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
-            std::cout << "iterating through graph";
+            //std::cout << "iterating through graph";
             SPFound = false;
             EPFound = false;
             for (const geometry_msgs::Point &point : segment.path){
