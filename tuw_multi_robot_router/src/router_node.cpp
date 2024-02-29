@@ -169,7 +169,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
         std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
-        existingPathSegVectors.insert({{-3, -3}, temp_vect[i]});
+        existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
     for (auto i : existingPathSegVectors){
         for( int j = 0; j<i.first.size(); j++){
