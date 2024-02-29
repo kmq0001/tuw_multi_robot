@@ -159,16 +159,27 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         step.push_back(y_start_pos);
         //step vector values are successfully assigned 
         temp_vect.push_back(step);
-        for (int i = 0; i < temp_vect.size(); i++){
-            for (int j = 0; j < temp_vect[i].size(); j++)
-            std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
-        }
+        //temp_vect values successfully assigned
+        //for (int i = 0; i < temp_vect.size(); i++){
+        //    for (int j = 0; j < temp_vect[i].size(); j++)
+        //    std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
+        //}
         //std::cout << "THE CONVERTED PATH  FROM DB" << str;
     }
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
         existingPathSegVectors.insert({{-3, -3}, temp_vect[i]});
     }
+    for (auto i : existingPathSegVectors){
+        for( int j = 0; j<i.first.size(); j++){
+            std::cout << "existingPathSegVectors: " << i.first[j];
+        }
+        for( int j = 0; j<i.second.size(); j++){
+            std::cout << "existingPathSegVectors: " << i.second[j];
+        }
+
+    }
+
 
     //std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
