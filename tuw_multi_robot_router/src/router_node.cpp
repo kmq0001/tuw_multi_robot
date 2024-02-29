@@ -172,15 +172,15 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     //std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
         std::cout << "iterating through map";
-        std::int segID;
-        std::bool SPFound = false;
-        std::bool EPFound = false;
-        std::vector<float> startPoint = {vect.second[2], vect.second[3]};
-        std::vector<float> endPoint = {startPoint[0] + vect.second[i][1][0], startPoint[1] + vect.second[i][1][1]};
+        int segID;
+        bool SPFound = false;
+        bool EPFound = false;
+        vector<float> startPoint = {vect.second[2], vect.second[3]};
+        std::vector<float> endPoint = {startPoint[0] + vect.second[0], startPoint[1] + vect.second[1]};
 
         for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
             SPFound = false;
-            EPFouns = false;
+            EPFound = false;
             for (const geometry_msgs::Point &point : segment.path){
                 if(point.x == startPoint[0] && point.y == startPoint[1]){
                     SPFound = true;
