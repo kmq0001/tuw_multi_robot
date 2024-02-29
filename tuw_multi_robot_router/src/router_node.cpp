@@ -169,7 +169,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         existingPathSegVectors.insert({{-3, -3}, temp_vect[i]});
     }
 
-    ROS_INFO("ROS_GRAPH", ros_graph);
+    print("ROS_GRAPH", ros_graph);
 
 }
 
