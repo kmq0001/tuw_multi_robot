@@ -107,6 +107,7 @@ private:
     std::map<std::string, double> finished_robots_;     /// robots finished with execution time
     std::vector<std::string> missing_robots_;
     std::map<std::vector<float>, std::vector<float>> existingPathSegVectors; //maps a 2d vector with start and end time to a vector represnting the path step/segment
+    tuw_multi_robot_msgs::Graph ros_graph;
     float robot_radius_max_;
     cv::Mat distMap_;
     Eigen::Vector2d mapOrigin_;

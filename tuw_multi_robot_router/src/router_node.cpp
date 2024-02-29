@@ -162,12 +162,14 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         for (int i = 0; i < step.size(); i++){
             str.push_back(step[i]);
         }
-        std::cout << "THE CONVERTED PATH  FROM DB" << str;
-    } 
+        //std::cout << "THE CONVERTED PATH  FROM DB" << str;
+    }
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
         existingPathSegVectors.insert({{-3, -3}, temp_vect[i]});
     }
+
+    ROS_INFO("ROS_GRAPH", ros_graph);
 
 }
 
@@ -303,7 +305,9 @@ void Router_Node::graphCallback ( const tuw_multi_robot_msgs::Graph &msg ) {
         ROS_INFO("No map received. Waiting...");
         return;
     }
-
+    
+    ros_graph = msg;
+    
     std::vector<Segment> graph;
 
     for ( const tuw_multi_robot_msgs::Vertex &segment : msg.vertices ) {
