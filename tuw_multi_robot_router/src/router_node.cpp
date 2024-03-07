@@ -139,7 +139,7 @@ void Router_Node::monitorExecution() {
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
-    //std::cout << msg;
+    std::cout << msg;
     
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
 
@@ -168,20 +168,10 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     }
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
-        std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
+        //std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
         existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
-    for (auto i : existingPathSegVectors){
-        for( int j = 0; j<i.first.size(); j++){
-            std::cout << "existingPathSegVectors: " << i.first[j];
-        }
-        for( int j = 0; j<i.second.size(); j++){
-            std::cout << "existingPathSegVectors: " << i.second[j];
-        }
-
-    }
-
-
+    
     //std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
         std::cout << "iterating through map";
