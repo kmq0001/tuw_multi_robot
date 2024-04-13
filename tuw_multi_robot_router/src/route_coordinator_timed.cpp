@@ -300,7 +300,7 @@ void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, 
     while (checking){
         if (allPathSegsFound){
             for (std::vector<float> &segment: segment_info){
-                addSegment(segment[1], segment[2], segment[0], -1, _robotSize, true);
+                addSegment(segment[1], segment[2], segment[0], -1, _diameterPixel, true);
             }
         }
     }
