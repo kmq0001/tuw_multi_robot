@@ -39,6 +39,8 @@
 #include <tuw_global_router/common.h>
 
 //TODO add Weights from robots...
+std::vector<std::vector<float>> segment_info;
+bool allPathSegsFound = false;
 
 int main ( int argc, char **argv ) {
 
@@ -183,9 +185,8 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
     
-    std::vector<std::vector<float>> segment_info;
     float segTime = 3.5;
-    bool allPathSegsFound = false;
+    //bool allPathSegsFound = false;
 
     //std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
