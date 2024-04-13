@@ -160,8 +160,8 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         //float y_end_pos = msg.poses[i].pose.position.y;
         //the above values are successfully assigned. test with below commented out print command
         //std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
-        step.push_back(x_vect);
-        step.push_back(y_vect);
+        step.push_back(x_end_pos);
+        step.push_back(y_end_pos);
         step.push_back(x_start_pos);
         step.push_back(y_start_pos);
         //step.push_back(x_end_pos);
@@ -183,10 +183,10 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     }
     
     std::vector<std::vector<float>> segment_info;
-    float segTime = 3.5
+    float segTime = 3.5;
     bool allPathSegsFound = false;
 
-    std::printf("ROS_GRAPH", ros_graph.data);
+    //std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
         std::cout << "iterating through map";
         float segID;
@@ -223,7 +223,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     }
 
     pathCount = pathCount + 1;
-    if (pathCount == msg.seq){
+    if (pathCount == msg.header.seq){
         allPathSegsFound = true;
     }
 }
