@@ -31,7 +31,7 @@
 
 #include <tuw_global_router/route_coordinator.h>
 #include <tuw_global_router/srr_utils.h>
-#include <tuw_global_router/router_node.h>
+//#include <tuw_global_router/router_node.h>
 
 namespace multi_robot_router
 {
