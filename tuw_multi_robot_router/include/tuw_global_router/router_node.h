@@ -51,8 +51,8 @@
 
 namespace multi_robot_router
 {
-//extern std::vector<std::vector<float>> segment_info;
-//extern bool allPathSegsFound;
+extern std::vector<std::vector<float>> segment_info;
+extern bool allPathSegsFound;
 class Router_Node : Router
 {
 
