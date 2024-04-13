@@ -54,7 +54,9 @@ int main ( int argc, char **argv ) {
         node.monitorExecution();
         node.updateTimeout ( r.expectedCycleTime().toSec() );
     }
-
+    ////////////////////////////// BEGIN ////////////////////////////////////////////
+    int pathCount = 0;
+    ////////////////////////////// END /////////////////////////////////////////////
     return 0;
 }
 
@@ -79,7 +81,9 @@ Router_Node::Router_Node ( ros::NodeHandle &_n ) : Router(),
     subMap_ = n_.subscribe ( "map", 1, &Router_Node::mapCallback, this );
     subVoronoiGraph_ = n_.subscribe ( "segments", 1, &Router_Node::graphCallback, this );
     subRobotInfo_ = n_.subscribe ( "robot_info" , 10000, &Router_Node::robotInfoCallback, this );
+    /////////////////////////////////////////////////// BEGIN //////////////////////////////////////////////////
     subExistingPaths_ = n_.subscribe("new_topic", 10, &Router_Node::existingPathsCallback, this);
+    /////////////////////////////////////////////////// END ////////////////////////////////////////////////////
 
     if ( single_robot_mode_) {
         /// Sinble Robot Mode
@@ -137,6 +141,7 @@ void Router_Node::monitorExecution() {
 
 }
 
+///////////////////////////////// BEGIN //////////////////////////////////////////////////////////////////////////////
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
     std::cout << msg;
@@ -147,19 +152,24 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     std::vector<std::vector<float>> temp_vect;
     for(int i = 1; i < msg.poses.size(); i++) {
         std::vector<float> step;
-        float x_vect = msg.poses[i].pose.position.x - msg.poses[i-1].pose.position.x;
-        float y_vect = msg.poses[i].pose.position.y - msg.poses[i-1].pose.position.y;
+        float x_end_pos = msg.poses[i].pose.position.x;
+        float y_end_pos = msg.poses[i].pose.position.y;
         float x_start_pos = msg.poses[i-1].pose.position.x;
         float y_start_pos = msg.poses[i-1].pose.position.y;
+        //float x_end_pos = msg.poses[i].pose.position.x;
+        //float y_end_pos = msg.poses[i].pose.position.y;
         //the above values are successfully assigned. test with below commented out print command
         //std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
         step.push_back(x_vect);
         step.push_back(y_vect);
         step.push_back(x_start_pos);
         step.push_back(y_start_pos);
+        //step.push_back(x_end_pos);
+        //step.push_back(y_end_pos);
         //step vector values are successfully assigned 
         temp_vect.push_back(step);
         //temp_vect values successfully assigned
+
         //for (int i = 0; i < temp_vect.size(); i++){
         //    for (int j = 0; j < temp_vect[i].size(); j++)
         //    std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
@@ -172,14 +182,21 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
     
-    //std::printf("ROS_GRAPH", ros_graph.data);
+    std::vector<std::vector<float>> segment_info;
+    float segTime = 3.5
+    bool allPathSegsFound = false;
+
+    std::printf("ROS_GRAPH", ros_graph.data);
     for ( auto vect : existingPathSegVectors ){
         std::cout << "iterating through map";
-        int segID;
+        float segID;
+        float startTime;
+        float endTime;
+        float time;
         bool SPFound = false;
         bool EPFound = false;
         std::vector<float> startPoint = {vect.second[2], vect.second[3]};
-        std::vector<float> endPoint = {startPoint[0] + vect.second[0], startPoint[1] + vect.second[1]};
+        std::vector<float> endPoint = {vect.second[0], vect.second[1]};
 
         for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
             //std::cout << "iterating through graph";
@@ -194,14 +211,23 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
                 }
                 if(SPFound && EPFound){
                     segID = segment.id;
-                    std::cout << "Segment ID Found: " << std::to_string(segID);
-                    //addSegment()
+                    startTime = time;
+                    time = time + segTime;
+                    endTime = time;
+                    segment_info.push_back({segID, startTime, endTime});
+                    //std::cout << "Segment ID Found: " << std::to_string(segID);
                     break;
                 }
             }
         }
     }
+
+    pathCount = pathCount + 1;
+    if (pathCount == msg.seq){
+        allPathSegsFound = true;
+    }
 }
+/////////////////////////////////////////////// END ////////////////////////////////////////////////////////////
 
 void Router_Node::goalCallback ( const geometry_msgs::PoseStamped &msg ) {
     

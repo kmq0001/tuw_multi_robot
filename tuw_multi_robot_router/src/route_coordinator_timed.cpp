@@ -243,38 +243,6 @@ RouteCoordinatorTimed::Timeline::Timeline()
 {
 }
 
-
-//this is where you have to make the changes
-void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, const uint32_t _nrRobots)
-{
-    nrRobots_ = _nrRobots;
-    timeline_.clear();
-    segmentSpace_.clear();
-    maxTime_ = 0;
-
-    for (int i = 0; i < _graph.size(); i++)
-    {
-        timeline_.emplace_back();
-        segmentSpace_.push_back(_graph[i].width());
-    }
-
-    /*
-    vector<> existingSegs
-    for(int i=0; i < nrOfExistingSegments; i++){
-        addSegment(st, et, segid, -1, _robotSize, ms)
-    }*/
-    
-    //TODO AddSegment here. 
-    /*addSegment requires :
-        startTime uint32_t - check how both of these times are made. Formatting and from when does the time count. Then how can it be calculated. Roberto had an idea. Go back in notebok and check this
-        endTime uint32_t - can be done
-        segId uint32_t - find out where these are stored and see how you can translate the positions to the segments  
-        robotNr uint32_t - double ckeck that this means robot id. If it does, could add robot id to message in 'seg' variable ---> -1
-        uint32_t robotSize - estimate - hardcode this for now
-        bool mainSeg - what does this mean? set to true?
-    */
-}
-
 bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, const int32_t _endTime, const uint32_t _segId, const uint32_t _robotNr, const uint32_t _robotSize, bool _mainSeg)
 {
     int collision;
@@ -309,6 +277,43 @@ bool RouteCoordinatorTimed::Timeline::addSegment(const uint32_t _startTime, cons
     std::cout << mySerializedObject;*/
 
     return true;
+}
+
+//this is where you have to make the changes
+void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, const uint32_t _nrRobots)
+{
+    nrRobots_ = _nrRobots;
+    timeline_.clear();
+    segmentSpace_.clear();
+    maxTime_ = 0;
+
+    for (int i = 0; i < _graph.size(); i++)
+    {
+        timeline_.emplace_back();
+        segmentSpace_.push_back(_graph[i].width());
+    }
+    
+    ////////////////////////////////////// BEGIN /////////////////////////////////////
+    bool checking = true;
+    while (checking){
+        if (allPathSegsFound){
+            for (std::vector<float> &segment: segment_info){
+                addSegment(segment[1], segment[2], segment[0], -1, _robotSize, true);
+            }
+        }
+    }
+
+    //TODO AddSegment here. 
+    /*addSegment requires :
+        startTime uint32_t - check how both of these times are made. Formatting and from when does the time count. Then how can it be calculated. Roberto had an idea. Go back in notebok and check this
+        endTime uint32_t - can be done
+        segId uint32_t - find out where these are stored and see how you can translate the positions to the segments  
+        robotNr uint32_t - double ckeck that this means robot id. If it does, could add robot id to message in 'seg' variable ---> -1
+        uint32_t robotSize - estimate - hardcode this for now
+        bool mainSeg - what does this mean? set to true?
+    */
+
+   ////////////////////////////////////// END //////////////////////////////////////////////
 }
 
 bool RouteCoordinatorTimed::Timeline::addCrossingSegment(const uint32_t _startTime, const int32_t _endTime, const uint32_t _segId, const uint32_t _robotNr, const uint32_t _robotSize, const bool &_mainSeg)

@@ -240,7 +240,7 @@ void MultiRobotLocalBehaviorController::subSegPathCb(const ros::MessageEvent<con
     observer_[_topic].init(segPath);
     std::fill(robot_steps_.begin(), robot_steps_.end(), 0);
 
-    bool chged = false;
+    bool chged = false; //if this is false how does anything ever get published!?!?!
     std::vector<Eigen::Vector3d> newPath = converter_[_topic].updateSync(robot_steps_, chged);
 
     if (chged)

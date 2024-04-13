@@ -235,6 +235,8 @@ class RouteCoordinatorTimed : public RouteCoordinator
              * @param _robot the robot to remove
              */
     void removeRobot(const uint32_t _robot);
+    std::vector<std::vector<float>> segment_info;
+    bool allPathSegsFound;
 
   private:
     // Checks a segment ignoring Crossings

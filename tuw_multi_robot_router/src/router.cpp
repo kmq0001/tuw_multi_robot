@@ -80,6 +80,7 @@ void Router::resize(const uint32_t _nr_robots)
     realStart_.resize(_nr_robots);
 }
 
+//checks if start and end points are feasable (not too close to any obstacles)
 bool Router::preprocessEndpoints(const std::vector<float> &_radius, const float &resolution, const Eigen::Vector2d &origin, const std::vector<Segment> &_graph)
 {
     for (uint32_t i = 0; i < goals_.size(); i++)
@@ -107,6 +108,7 @@ bool Router::preprocessEndpoints(const std::vector<float> &_radius, const float 
     return true;
 }
 
+//also checks the viability of start and goal points although something to with algorithm used and the map format, not sure
 bool Router::processEndpointsExpander(const cv::Mat &_map, const std::vector<Segment> &_graph, const Eigen::Vector2d &_realStart, const Eigen::Vector2d &_realGoal, Eigen::Vector2d &_voronoiStart, Eigen::Vector2d &_voronoiGoal, uint32_t &_segmentStart, uint32_t &_segmentGoal, const uint32_t _diameter, const uint32_t _index) const
 {
 
@@ -325,17 +327,21 @@ bool Router::resolveSegment(const std::vector<Segment> &_graph, const uint32_t &
     return false;
 }
 
+
+
+//THIS IS THE STUFF THAT MATTERS. ALL BELOW! Big whooooppppppp
 bool Router::makePlan(const std::vector<Eigen::Vector3d> &_starts, const std::vector<Eigen::Vector3d> &_goals, const std::vector<float> &_radius, const cv::Mat &_map, const float &_resolution, const Eigen::Vector2d &_origin, const std::vector<Segment> &_graph, const std::vector<std::string> &_robot_names)
 {
-    robot_names_ = _robot_names;
-    auto t1 = std::chrono::high_resolution_clock::now();
-    std::clock_t startcputime = std::clock();
+    robot_names_ = _robot_names; //vector of strings. Robot names (ids)
+    auto t1 = std::chrono::high_resolution_clock::now();    //set time to check duration later
+    std::clock_t startcputime = std::clock();    //setting variables to current time (time of plan creation)
 
+    //checks that there are the right amount of goals, start points and radiuses before beginning path computation - not relevant if goals array is amended correctly
     if (_goals.size() != _starts.size() || _goals.size() != _radius.size())
     {
         ROS_INFO("Multi Robot Router: Wrong nr of goals, starts or radii %lu %lu %lu", _starts.size(), goals_.size(), _radius.size());
         auto t2 = std::chrono::high_resolution_clock::now();
-        duration_ = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
+        duration_ = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();    //time to check whether number of goals etc are corrcet
         return false;
     }
 
@@ -369,6 +375,7 @@ bool Router::makePlan(const std::vector<Eigen::Vector3d> &_starts, const std::ve
     multiRobotRouter_->setSpeedRescheduling(speedRescheduling_);
     routingTable_.clear();
 
+    //LOOK INTO getRoutingTable()
     if (!multiRobotRouter_->getRoutingTable(_graph, startSegments_, goalSegments_, routingTable_, routerTimeLimit_s_))
     {
         ROS_INFO("Multi Robot Router: Failed to find Routing Table !!!");
@@ -379,21 +386,21 @@ bool Router::makePlan(const std::vector<Eigen::Vector3d> &_starts, const std::ve
 
     if (segmentOptimizations_)
         optimizePaths(_graph);
+    postprocessRoutingTable();    //LOOK INTO postprocessRoutingTable()
 
-    postprocessRoutingTable();
-
+    //all of the below just check how long aths and sections are etc. - no actual planning, uses already made paths from the routingTable
     //DEBUG STATS
     longestPatLength_ = 0;
     overallPathLength_ = 0;
 
-    for (std::vector<Checkpoint> &path : routingTable_)
+    for (std::vector<Checkpoint> &path : routingTable_)    //for every path in the routingTable - when did the routingTable get filled after being cleared a second ago?
     {
         float lengthPath = 0;
 
-        for (Checkpoint &seg : path)
+        for (Checkpoint &seg : path)    //for every checkpoint in the path
         {
             Eigen::Vector3d vec = (seg.end - seg.start);
-            float lengthVertex = std::sqrt(vec[0] * vec[0] + vec[1] * vec[1]);
+            float lengthVertex = std::sqrt(vec[0] * vec[0] + vec[1] * vec[1]);    //length of that path section
             overallPathLength_ += lengthVertex;
             lengthPath += lengthVertex;
         }
