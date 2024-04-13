@@ -78,9 +78,8 @@ public:
     void updateTimeout ( const float _secs );
     ros::NodeHandle n_;       ///< Node handler to the root node
     ros::NodeHandle n_param_; ///< Node handler to the current node
-    std::vector<std::vector<float>> segment_info;
-    bool allPathSegsFound;
-
+    extern std::vector<std::vector<float>> segment_info;
+    extern bool allPathSegsFound;
 private:
     //these 3 members are for time logging
     int attempts_total_;
