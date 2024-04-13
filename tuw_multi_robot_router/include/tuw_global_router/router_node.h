@@ -45,13 +45,14 @@
 #include <tuw_global_router/router.h>
 #include <tuw_global_router/mrr_utils.h>
 #include <opencv2/core/core.hpp>
+#include <tuw_global_router/common.h>
 
 //TODO disable got_map if not used
 
 namespace multi_robot_router
 {
-extern std::vector<std::vector<float>> segment_info;
-extern bool allPathSegsFound;
+//extern std::vector<std::vector<float>> segment_info;
+//extern bool allPathSegsFound;
 class Router_Node : Router
 {
 
