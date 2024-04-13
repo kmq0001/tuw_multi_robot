@@ -45,7 +45,7 @@
 #include <tuw_global_router/router.h>
 #include <tuw_global_router/mrr_utils.h>
 #include <opencv2/core/core.hpp>
-#include <tuw_global_router/common.h>
+//#include <tuw_global_router/common.h>
 
 //TODO disable got_map if not used
 
