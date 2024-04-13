@@ -36,7 +36,7 @@
 #include <tf/tf.h>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-#include <tuw_global_router/common.h>
+//#include <tuw_global_router/common.h>
 
 //TODO add Weights from robots...
 std::vector<std::vector<float>> segment_info;
