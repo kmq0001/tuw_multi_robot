@@ -50,10 +50,11 @@
 
 namespace multi_robot_router
 {
-class Router_Node : Router
-{
 extern std::vector<std::vector<float>> segment_info;
 extern bool allPathSegsFound;
+class Router_Node : Router
+{
+
 public:
     /**
      * @brief Construct a new Router_Node object
