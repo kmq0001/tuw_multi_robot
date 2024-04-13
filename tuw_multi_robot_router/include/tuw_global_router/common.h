@@ -7,3 +7,4 @@ namespace multi_robot_router
     extern bool allPathSegsFound;
 }
 
+#endif
