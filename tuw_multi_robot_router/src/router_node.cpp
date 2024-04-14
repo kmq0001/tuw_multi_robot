@@ -145,6 +145,7 @@ void Router_Node::monitorExecution() {
 }
 
 ///////////////////////////////// BEGIN //////////////////////////////////////////////////////////////////////////////
+
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
     std::cout << msg;
@@ -223,10 +224,11 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
             }
         }
     }
+
     std::cout << 'pathCount in routernode: ' << std::to_string(pathCount);
-    std::cout << 'number of existing paths: ' << std::to_string(msg.header.seq);
+    std::cout << 'number of existing paths: ' << std::to_string(msg.header.frame);
     pathCount = pathCount + 1;
-    if (pathCount == msg.header.seq){
+    if (pathCount == std::to_int(msg.header.frame)){
         allPathSegsFound = true;
     }
 }
