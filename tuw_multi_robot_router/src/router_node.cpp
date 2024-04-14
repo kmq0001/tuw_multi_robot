@@ -155,6 +155,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     //populate vector with vectors containing 2d vector values and starting positions of steps in the path
     std::vector<std::vector<float>> temp_vect;
     for(int i = 1; i < msg.poses.size(); i++) {
+        std::cout << 'IN FIRST LOOP';
         std::vector<float> step;
         float x_end_pos = msg.poses[i].pose.position.x;
         float y_end_pos = msg.poses[i].pose.position.y;
@@ -182,6 +183,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     }
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
+        std::cout << 'IN SECOND LOOP';
         //std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
         existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
@@ -224,7 +226,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
             }
         }
     }
-
+    std::cout << 'GOT HERE';
     std::cout << 'pathCount in routernode: ' << std::to_string(pathCount);
     std::cout << 'number of existing paths: ' << std::stoi(msg.header.frame_id);
     pathCount = pathCount + 1;
