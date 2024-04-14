@@ -154,79 +154,88 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
 
     //populate vector with vectors containing 2d vector values and starting positions of steps in the path
     std::vector<std::vector<float>> temp_vect;
-    for(int i = 1; i < msg.poses.size(); i++) {
-        std::cout << 'IN FIRST LOOP';
-        std::vector<float> step;
-        float x_end_pos = msg.poses[i].pose.position.x;
-        float y_end_pos = msg.poses[i].pose.position.y;
-        float x_start_pos = msg.poses[i-1].pose.position.x;
-        float y_start_pos = msg.poses[i-1].pose.position.y;
-        //float x_end_pos = msg.poses[i].pose.position.x;
-        //float y_end_pos = msg.poses[i].pose.position.y;
-        //the above values are successfully assigned. test with below commented out print command
-        //std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
-        step.push_back(x_end_pos);
-        step.push_back(y_end_pos);
-        step.push_back(x_start_pos);
-        step.push_back(y_start_pos);
-        //step.push_back(x_end_pos);
-        //step.push_back(y_end_pos);
-        //step vector values are successfully assigned 
-        temp_vect.push_back(step);
-        //temp_vect values successfully assigned
+    if (msg.poses.size() != 0){
+        for(int i = 1; i < msg.poses.size(); i++) {
+            std::cout << 'IN FIRST LOOP';
+            std::vector<float> step;
+            float x_end_pos = msg.poses[i].pose.position.x;
+            float y_end_pos = msg.poses[i].pose.position.y;
+            float x_start_pos = msg.poses[i-1].pose.position.x;
+            float y_start_pos = msg.poses[i-1].pose.position.y;
+            //float x_end_pos = msg.poses[i].pose.position.x;
+            //float y_end_pos = msg.poses[i].pose.position.y;
+            //the above values are successfully assigned. test with below commented out print command
+            //std::cout << "content for step vector: " << std::to_string(x_vect) << std::to_string(y_vect) << std::to_string(x_start_pos) << std::to_string(y_start_pos);
+            step.push_back(x_end_pos);
+            step.push_back(y_end_pos);
+            step.push_back(x_start_pos);
+            step.push_back(y_start_pos);
+            //step.push_back(x_end_pos);
+            //step.push_back(y_end_pos);
+            //step vector values are successfully assigned 
+            temp_vect.push_back(step);
+            //temp_vect values successfully assigned
 
-        //for (int i = 0; i < temp_vect.size(); i++){
-        //    for (int j = 0; j < temp_vect[i].size(); j++)
-        //    std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
-        //}
-        //std::cout << "THE CONVERTED PATH  FROM DB" << str;
+            //for (int i = 0; i < temp_vect.size(); i++){
+            //    for (int j = 0; j < temp_vect[i].size(); j++)
+            //    std::cout << "temp_vect vector: " << std::to_string(temp_vect[i][j]);
+            //}
+            //std::cout << "THE CONVERTED PATH  FROM DB" << str;
+        }
     }
     std::cout << 'MADE IT OUT OF FIRST LOOP';
     //ROS_INFO(temp_vect);
-    for (int i = 0; i < temp_vect.size(); i++){
-        std::cout << 'IN SECOND LOOP';
-        //std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
-        existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
+
+    if (temp_vect.size() != 0){
+        for (int i = 0; i < temp_vect.size(); i++){
+            std::cout << 'IN SECOND LOOP';
+            //std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
+            existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
+        }
     }
+
     std::cout << 'MADE IT PAST SECOND LOOP';
     float segTime = 3.5;
     //bool allPathSegsFound = false;
 
     //std::printf("ROS_GRAPH", ros_graph.data);
-    for ( auto vect : existingPathSegVectors ){
-        std::cout << "iterating through map";
-        float segID;
-        float startTime;
-        float endTime;
-        float time;
-        bool SPFound = false;
-        bool EPFound = false;
-        std::vector<float> startPoint = {vect.second[2], vect.second[3]};
-        std::vector<float> endPoint = {vect.second[0], vect.second[1]};
+    if (existingPathSegVectors.size() != 0){
+        for ( auto vect : existingPathSegVectors ){
+            std::cout << "iterating through map";
+            float segID;
+            float startTime;
+            float endTime;
+            float time;
+            bool SPFound = false;
+            bool EPFound = false;
+            std::vector<float> startPoint = {vect.second[2], vect.second[3]};
+            std::vector<float> endPoint = {vect.second[0], vect.second[1]};
 
-        for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
-            //std::cout << "iterating through graph";
-            SPFound = false;
-            EPFound = false;
-            for (const geometry_msgs::Point &point : segment.path){
-                if(point.x == startPoint[0] && point.y == startPoint[1]){
-                    SPFound = true;
-                }
-                if(point.x ==endPoint[0] && point.y == endPoint[1]){
-                    EPFound = true;
-                }
-                if(SPFound && EPFound){
-                    segID = segment.id;
-                    startTime = time;
-                    time = time + segTime;
-                    endTime = time;
-                    segment_info.push_back({segID, startTime, endTime});
-                    //std::cout << "Segment ID Found: " << std::to_string(segID);
-                    break;
+            for (const tuw_multi_robot_msgs::Vertex &segment : ros_graph.vertices){
+                //std::cout << "iterating through graph";
+                SPFound = false;
+                EPFound = false;
+                for (const geometry_msgs::Point &point : segment.path){
+                    if(point.x == startPoint[0] && point.y == startPoint[1]){
+                        SPFound = true;
+                    }
+                    if(point.x ==endPoint[0] && point.y == endPoint[1]){
+                        EPFound = true;
+                    }
+                    if(SPFound && EPFound){
+                        segID = segment.id;
+                        startTime = time;
+                        time = time + segTime;
+                        endTime = time;
+                        segment_info.push_back({segID, startTime, endTime});
+                        //std::cout << "Segment ID Found: " << std::to_string(segID);
+                        break;
+                    }
                 }
             }
         }
     }
+    
     std::cout << 'GOT HERE';
     std::cout << 'pathCount in routernode: ' << std::to_string(pathCount);
     std::cout << 'number of existing paths: ' << std::stoi(msg.header.frame_id);
