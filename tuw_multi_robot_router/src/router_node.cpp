@@ -223,8 +223,8 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
             }
         }
     }
-    std::cout << 'pathCount in routernode: ' << str(pathCount);
-    std::cout << 'number of existing paths: ' << str(msg.header.seq);
+    std::cout << 'pathCount in routernode: ' << std::to_string(pathCount);
+    std::cout << 'number of existing paths: ' << std::to_string(msg.header.seq);
     pathCount = pathCount + 1;
     if (pathCount == msg.header.seq){
         allPathSegsFound = true;
