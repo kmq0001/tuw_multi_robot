@@ -298,6 +298,7 @@ void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, 
     ////////////////////////////////////// BEGIN /////////////////////////////////////
     bool checking = true;
     while (checking){
+        std::cout << 'allPathSegsFound in coordinator timed: ' << str(allPathSegsFound);
         if (allPathSegsFound){
             checking = false;
             for (std::vector<float> &segment: segment_info){
