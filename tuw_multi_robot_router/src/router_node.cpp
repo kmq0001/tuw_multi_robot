@@ -181,14 +181,14 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         //}
         //std::cout << "THE CONVERTED PATH  FROM DB" << str;
     }
-    std::cout << 'MADE IT OUT OF FIRST LOOP'
+    std::cout << 'MADE IT OUT OF FIRST LOOP';
     //ROS_INFO(temp_vect);
     for (int i = 0; i < temp_vect.size(); i++){
         std::cout << 'IN SECOND LOOP';
         //std::cout << "inserting. map size: " << std::to_string(existingPathSegVectors.size());
         existingPathSegVectors.insert({{i-3, i-3}, temp_vect[i]});
     }
-    std::cout << 'MADE IT PAST SECOND LOOP'
+    std::cout << 'MADE IT PAST SECOND LOOP';
     float segTime = 3.5;
     //bool allPathSegsFound = false;
 
