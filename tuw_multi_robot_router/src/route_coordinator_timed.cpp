@@ -304,6 +304,7 @@ void RouteCoordinatorTimed::Timeline::reset(const std::vector<Segment> &_graph, 
             for (std::vector<float> &segment: segment_info){
                 addSegment(segment[1], segment[2], segment[0], -1, segmentSpace_[segment[0]], true);
             }
+            segment_info.clear();
         }
     }
 
