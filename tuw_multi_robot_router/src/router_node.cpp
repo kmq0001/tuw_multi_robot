@@ -182,7 +182,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
             //std::cout << "THE CONVERTED PATH  FROM DB" << str;
         }
     }
-    std::cout << "MADE IT OUT OF FIRST LOOP";
+    //std::cout << "MADE IT OUT OF FIRST LOOP";
     //ROS_INFO(temp_vect);
 
     if (temp_vect.size() != 0){
@@ -193,7 +193,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         }
     }
 
-    std::cout << "MADE IT PAST SECOND LOOP";
+    //std::cout << "MADE IT PAST SECOND LOOP";
     float segTime = 3.5;
     //bool allPathSegsFound = false;
 
@@ -241,6 +241,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     pathCount = pathCount + 1;
     if (pathCount == std::stoi(msg.header.frame_id)){
         allPathSegsFound = true;
+        pathCount = 0;
     }
 }
 /////////////////////////////////////////////// END ////////////////////////////////////////////////////////////
