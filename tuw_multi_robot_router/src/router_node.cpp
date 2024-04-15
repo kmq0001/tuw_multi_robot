@@ -241,6 +241,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     nrPaths = nrPaths + 1;
     if (nrPaths == std::stoi(msg.header.frame_id)){
         allPathSegsFound = true;
+        std::cout << "allPathSegsFound in router node: " << allPathSegsFound;
         nrPaths = 0;
     }
 }
