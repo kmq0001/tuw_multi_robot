@@ -39,8 +39,11 @@
 //#include <tuw_global_router/common.h>
 
 //TODO add Weights from robots...
+////////////////////////////// BEGIN ////////////////////////////////////////////
 std::vector<std::vector<float>> segment_info;
 bool allPathSegsFound = false;
+int pathCount = 0;
+////////////////////////////// END /////////////////////////////////////////////
 
 int main ( int argc, char **argv ) {
 
@@ -57,9 +60,6 @@ int main ( int argc, char **argv ) {
         node.monitorExecution();
         node.updateTimeout ( r.expectedCycleTime().toSec() );
     }
-    ////////////////////////////// BEGIN ////////////////////////////////////////////
-    int pathCount = 0;
-    ////////////////////////////// END /////////////////////////////////////////////
     return 0;
 }
 
