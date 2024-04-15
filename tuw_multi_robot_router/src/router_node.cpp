@@ -154,7 +154,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
 
     //populate vector with vectors containing 2d vector values and starting positions of steps in the path
     std::vector<std::vector<float>> temp_vect;
-    std::cout << 'length of msg: ' << std::to_string(msg.poses.siye())
+    std::cout << 'length of msg: ' << std::to_string(msg.poses.size());
     if (msg.poses.size() != 0){
         for(int i = 1; i < msg.poses.size(); i++) {
             std::cout << 'IN FIRST LOOP';
