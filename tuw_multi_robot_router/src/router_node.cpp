@@ -154,6 +154,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     std::vector<std::vector<float>> temp_vect;
     std::cout << "length of msg: " << std::to_string(msg.poses.size());
     if (msg.poses.size() != 0){
+        nrPaths = nrPaths + 1;
         for(int i = 1; i < msg.poses.size(); i++) {
             std::cout << "IN FIRST LOOP";
             std::vector<float> step;
@@ -238,7 +239,6 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     std::cout << "GOT HERE";
     std::cout << "pathCount in routernode: " << nrPaths;
     std::cout << "number of existing paths: " << std::stoi(msg.header.frame_id);
-    nrPaths = nrPaths + 1;
     if (nrPaths == std::stoi(msg.header.frame_id)){
         allPathSegsFound = true;
         std::cout << "allPathSegsFound in router node: " << allPathSegsFound;
