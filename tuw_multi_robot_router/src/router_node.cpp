@@ -42,7 +42,7 @@
 ////////////////////////////// BEGIN ////////////////////////////////////////////
 std::vector<std::vector<float>> segment_info;
 bool allPathSegsFound = false;
-int pathCount = 0;
+extern int pathCount = 0;
 ////////////////////////////// END /////////////////////////////////////////////
 
 int main ( int argc, char **argv ) {
@@ -236,7 +236,7 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     }
 
     std::cout << "GOT HERE";
-    std::cout << "pathCount in routernode: " << std::to_string(pathCount);
+    std::cout << "pathCount in routernode: " << pathCount;
     std::cout << "number of existing paths: " << std::stoi(msg.header.frame_id);
     pathCount = pathCount + 1;
     if (pathCount == std::stoi(msg.header.frame_id)){
