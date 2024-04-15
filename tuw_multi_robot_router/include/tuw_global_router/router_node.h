@@ -84,7 +84,7 @@ public:
     ros::NodeHandle n_;       ///< Node handler to the root node
     ros::NodeHandle n_param_; ///< Node handler to the current node
     //////////////////// BEGIN //////////////////////////////////////
-    int pathCount;
+    //int pathCount;
     ///////////////////// END //////////////////////////////////////////
 private:
     //these 3 members are for time logging
