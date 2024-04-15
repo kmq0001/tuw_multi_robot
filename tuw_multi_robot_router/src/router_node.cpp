@@ -148,13 +148,11 @@ void Router_Node::monitorExecution() {
 
 void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
     ROS_INFO("I so got tha message for you love. What will you od for me if I give it to you? ;)");
-    std::cout << msg;
-    
+    std::cout << msg; 
     //existingPathSegVectors.clear(); cant do this cuz itll then only have the last path it receives in it
-
-    //populate vector with vectors containing 2d vector values and starting positions of steps in the path
+   //populate vector with vectors containing 2d vector values and starting positions of steps in the path
     std::vector<std::vector<float>> temp_vect;
-    std::cout << 'length of msg: ' << std::to_string(msg.poses.size());
+    ROS_INFO('length of msg: ' + std::to_string(msg.poses.size()));
     if (msg.poses.size() != 0){
         for(int i = 1; i < msg.poses.size(); i++) {
             std::cout << 'IN FIRST LOOP';
