@@ -51,9 +51,10 @@
 
 namespace multi_robot_router
 {
+/////////////////////// BEGIN ///////////////////////////////
  std::vector<std::vector<float>> segment_info;
  bool allPathSegsFound;
-
+///////////////////// END ///////////////////////////////////
 class Router_Node : Router
 {
 
@@ -83,9 +84,7 @@ public:
     void updateTimeout ( const float _secs );
     ros::NodeHandle n_;       ///< Node handler to the root node
     ros::NodeHandle n_param_; ///< Node handler to the current node
-    //////////////////// BEGIN //////////////////////////////////////
-    //int nrPaths;
-    ///////////////////// END //////////////////////////////////////////
+
 private:
     //these 3 members are for time logging
     int attempts_total_;

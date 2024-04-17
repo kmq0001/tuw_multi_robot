@@ -27,8 +27,9 @@
  */
 
 #include <tuw_global_router/route_coordinator_timed.h>
+/////////////// BEGIN /////////////////////////////
 #include <tuw_global_router/router_node.h>
-//#include <tuw_global_router/common.h>
+///////////// END ///////////////////////////////
 #include <iostream>
 
 #define TIME_INFINITY (-1)

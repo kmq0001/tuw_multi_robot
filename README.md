@@ -22,6 +22,14 @@ Have a look at the [tuw_multi_robot_demo/README.md](tuw_multi_robot_demo/README.
 * tuw\_rqt\_ordermanager
 * tuw\_voronoi\_graph
 
+# Kara Dissertation Changes
+- Changes are made to the following scripts:
+    - tuw_multi_robot/tuw_multi_robot_router/src/route_coordinator_timed.cpp
+    - tuw_multi_robot/tuw_multi_robot_router/include/tuw_global_router/router_node.h
+    - tuw_multi_robot/tuw_multi_robot_router/src/router_node.cpp
+- All changes are marked with BEGIN and END comments
+- Note that this modified version of the TUW planner does not work with the old interface. This is due to the checking lop in route/coordinatpr_timed.cpp reset function
+
 # System overview
 <img src="tuw_multi_robot/res/dataflow.png" alt="200 Robots in stage" width="400px" />
 
