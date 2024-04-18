@@ -194,11 +194,9 @@ void Router_Node::existingPathsCallback ( const nav_msgs::Path &msg ) {
         }
     }
 
-    //std::cout << "MADE IT PAST SECOND LOOP";
-    float segTime = 3.5;
-    //bool allPathSegsFound = false;
 
-    //std::printf("ROS_GRAPH", ros_graph.data);
+    float segTime = 1; // TIME TO TRAVERSE SEGMENT HARDCODED VARIABLE
+
     if (existingPathSegVectors.size() != 0){
         for ( auto vect : existingPathSegVectors ){
             std::cout << "iterating through map";

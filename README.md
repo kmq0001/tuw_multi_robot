@@ -29,6 +29,7 @@ Have a look at the [tuw_multi_robot_demo/README.md](tuw_multi_robot_demo/README.
     - tuw_multi_robot/tuw_multi_robot_router/src/router_node.cpp
 - All changes are marked with BEGIN and END comments
 - Note that this modified version of the TUW planner does not work with the old interface. This is due to the checking lop in route/coordinatpr_timed.cpp reset function
+- The time that an AGV takes to traverse a segment is hardcoded in the current implementation. This should be made dynamic in future. The varibale that it is assigned is marked in tuw_multi_robot/tuw_multi_robot_router/src/router_node.cpp
 
 # System overview
 <img src="tuw_multi_robot/res/dataflow.png" alt="200 Robots in stage" width="400px" />
